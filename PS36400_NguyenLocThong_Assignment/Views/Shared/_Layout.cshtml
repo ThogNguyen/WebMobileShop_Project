@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
+</head>
+
+@{
+    string fullName = Context.Session.GetString("FullName");
+    bool isLoggedIn = !string.IsNullOrEmpty(fullName);
+}
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-md-top" id="navbar">
+        <div class="container">
+            <a class="navbar-brand rakkas-regular" asp-controller="TrangChu" asp-action="Index"><span id="logo-text">Mobile Shop</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span> <img src="~/image/toggle-icon.png" id="toggle-icon" /></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" asp-controller="Trangchu" asp-action="Index"><strong>Trang Chủ</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="DanhMucSP" asp-action="Index"><strong>Danh mục sản phẩm</strong></a>
+                    </li>
+
+                    @* Kiểm tra đang nhập hay chưa đn*@
+                    @if (isLoggedIn)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <strong>@fullName</strong>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">Đăng Xuất</a></li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <strong>Tài Khoản</strong>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Login" asp-action="Index">Đăng Nhập</a></li>
+                                <li><a class="dropdown-item" asp-controller="Register" asp-action="Index">Đăng Kí</a></li>
+                            </ul>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Cart" asp-action="Index"><strong>Giỏ Hàng</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="AdminPage" asp-controller="AdminTrangChu" asp-action="Index"><strong>Admin</strong></a>
+                    </li>
+                </ul>
+                <form class="d-flex" asp-controller="TimKiemSP" asp-action="Index" method="get">
+                    <input class="form-control me-2" type="search" name="timkiem" placeholder="Nhập từ khóa sản phẩm">
+                    <button class="btn btn-success" type="submit">Tìm</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="container bg-light text-dark mt-3 pt-3">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-5 col-sm-8 col-md-12 mb-5 pr-3 pr-xl-5">
+                <h5 class="text-secondary text-uppercase mb-4">THÔNG TIN CỬA HÀNG</h5>
+                <p class="mb-2"><i class="text-dark bi-house mr-3"></i> 123 Nguyễn Trãi, TP.HCM</p>
+                <p class="mb-2"><i class="text-dark bi-telephone mr-3"></i> abc@gmail.com</p>
+                <p class="mb-0"><i class="text-dark bi-envelope mr-3"></i> +012 345 67890</p>
+            </div>
+            <div class="col-lg-7 col-md-12">
+                <div class="row">
+                    <div class="col-md-5 col-sm-8 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4">Danh mục</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2"><i class=" mr-2"></i>Trang Chủ</a>
+                            <a class="text-dark mb-2"><i class=" mr-2"></i>Giới Thiệu</a>
+                            <a class="text-dark mb-2"><i class=" mr-2"></i>Liên Hệ</a>
+                            <a class="text-dark mb-2"><i class=" mr-2"></i>Thanh Toán</a>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-8 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4">Theo Dõi Chúng Tôi Tại</h5>
+                        <div class="d-flex">
+                            <a class="text-dark " style="margin-right: 15px;">
+                                <span><img src="~/image/facebook-icon.png"/></span>
+                            </a>
+                            <a class="text-dark " style="margin-right: 15px;">
+                                <span><img src="~/image/instagram-icon.png" /></span>
+                            </a>
+                            <a class="text-dark">
+                                <span><img src="~/image/twitter-icon.png" /></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row border-top mx-xl-5 py-3" style="border-color: rgba(256, 256, 256, .1) !important;">
+            <div class="col-md-12 px-xl-0">
+                <p class="mb-md-0 text-center text-md-left text-secondary">
+                    FPT Polytechnic &copy; 2024. Nguyễn Lộc Thông - PS36400.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

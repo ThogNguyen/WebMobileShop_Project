@@ -1,0 +1,16 @@
+﻿@model IEnumerable<PS36400_NguyenLocThong_Assignment.Models.LoaiSanPham>
+
+
+<div class="widget wid-categories">
+    <div class="heading"><h4 class="text-uppercase">Danh mục</h4></div>
+    <div class="content">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a asp-controller="DanhMucSP" asp-action="Index" asp-route-loai="@item.TenLoaiSp" asp-route-priceRange="@ViewData["PriceRange"]" asp-route-screenSize="@ViewData["ScreenSize"]" asp-route-sortOrder="@ViewData["SortOrder"]">@item.TenLoaiSp</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

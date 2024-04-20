@@ -1,0 +1,85 @@
+﻿@model PS36400_NguyenLocThong_Assignment.ViewModels.SanphamVM;
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/AdminPage/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Cập Nhật Sản Phẩm</h1>
+<div>
+    <a asp-action="IndexSP" asp-controller="AdminQLSanPham" class="btn btn-danger">Trở về</a>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="@ViewData["MaSP"]" />
+            <div class="row">
+                <div class="form-group col-md-6">
+                    Tên sản phẩm
+                    <input asp-for="TenSp" class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                    Giá sản phẩm
+                    <input asp-for="GiaSp" class="form-control" />
+                    <span asp-validation-for="GiaSp" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="offset-sm-4 col-sm-6">
+                    <img src="/image/@ViewData["HinhSP"]" width="150">
+                </div>
+            </div>
+            <div class="form-group">
+                Hình sản phẩm
+                <input asp-for="HinhSp" class="form-control" />
+                <span asp-validation-for="HinhSp" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    Chip
+                    <input asp-for="Chip" class="form-control" />
+                    <span asp-validation-for="Chip" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    Màn hình
+                    <input asp-for="ManHinh" class="form-control" />
+                    <span asp-validation-for="ManHinh" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    Ram
+                    <input asp-for="Ram" class="form-control" />
+                    <span asp-validation-for="Ram" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    Rom
+                    <input asp-for="Rom" class="form-control" />
+                    <span asp-validation-for="Rom" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                Số lượt bán
+                <input asp-for="Soluotban" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                Ngày đăng sản phẩm
+                <input value="@ViewData["NgayDangSP"]" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                Tên loại sản phẩm
+                <select asp-for="MaLoaiSp" class="form-control" asp-items="ViewBag.MaLoaiSp"></select>
+                <span asp-validation-for="MaLoaiSp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary mr-1" type="submit">Sửa</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

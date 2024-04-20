@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Tìm Kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<PS36400_NguyenLocThong_Assignment.Models.SanPham>
+
+
+<h3 class="mt-4" style="font-weight:550;">Kết quả của tìm kiếm cho: <span style="color:red;">"@(!string.IsNullOrEmpty(ViewBag.Query) ? ViewBag.Query : "")"</span></h3>
+
+
+
+<div class="col-md-12">
+    <div class="row p-3">
+        @if (!string.IsNullOrEmpty(ViewBag.NullQuery))
+        {
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <span class="bi bi-emoji-frown" style="font-size: 2rem; margin-right: 5px"></span>
+                <h3 class="text-warning mt-2">Không tìm thấy sản phẩm bạn cần tìm</h3>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 col-sm-6 p-2">
+                    <div class="card text-center">
+                        <a asp-controller="DanhMucSP" asp-action="DetailProduct" asp-route-id="@item.MaSp">
+                            <img class="product-image" src="~/image/@item.HinhSp">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title text-center product-name">@item.TenSp</h5>
+                            <p class="card-text text-center text-danger text-giasp">
+                                @String.Format("{0:N0}", @item.GiaSp)đ
+                            </p>
+                            <div class="cdt-product__config__param">
+                                <div class="param-item">
+                                    <i class="bi bi-cpu" title="CPU"></i>@item.Chip
+                                </div>
+                                <div class="param-item">
+                                    <i class="bi bi-phone" title="Màn Hình"></i>@item.ManHinh inches
+                                </div>
+                                <div class="param-item">
+                                    <i class="bi bi-memory" title="RAM"></i>@item.Ram GB
+                                </div>
+                                <div class="param-item">
+                                    <i class="bi bi-hdd" title="ROM"></i>@item.Rom GB
+                                </div>
+                            </div>
+                            <div class="btn-group d-flex justify-content-center" role="group">
+                                <a asp-action="addtoCart" asp-controller="Cart" asp-route-id="@item.MaSp" class="btn btn-outline-success btn-sm">Thêm vào giỏ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

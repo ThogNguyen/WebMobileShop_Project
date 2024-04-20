@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "DetailProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model PS36400_NguyenLocThong_Assignment.Models.SanPham
+
+<div class="row text-center">
+    <div class="col-md-5">
+        <img src="~/image/@Model.HinhSp" alt="opppa18" width="400px" style="margin-top: 20px">
+    </div>
+    <div class="col-md-4 detail-product d-flex flex-column align-items-start justify-content-center">
+        <ul class="list-detail">
+            <li>
+                <h2 style="font-weight:500">@Model.TenSp</h2>
+            </li>
+            <li class="text-danger" style="font-weight: 500; font-size: 32px">
+                @String.Format("{0:N0}", Model.GiaSp)đ
+            </li>
+            <form asp-action="addtoCart" asp-controller="Cart" asp-route-id="@Model.MaSp">
+                <li>
+                    <input type="number" min="1" value="1" name="soluong" class="form-control">
+                </li>
+                <li class="mt-4 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-warning" style="width: 100%;"><span class="bi bi-basket">
+                        </span>Thêm vào giỏ</button>
+                </li>
+            </form>
+        </ul>
+    </div>
+    <div class="col-md-3 d-flex flex-column justify-content-center">
+        <div class="st-param">
+            <p style="font-size: 18px"><strong>Thông số kỹ thuật</strong></p>
+            <ul style="padding-left: 30px;">
+                <li>
+                    <i class="bi bi-cpu" style="margin-right:8px" title="CPU"></i><p> @Model.Chip</p>
+                </li>
+                <li>
+                    <i class="bi bi-phone" style="margin-right:8px" title="Màn hình"></i><p> @Model.ManHinh inches</p>
+                </li>
+                <li>
+                    <i class="bi bi-memory" style="margin-right:8px" title="RAM"></i><p> @Model.Ram GB</p>
+                </li>
+                <li>
+                    <i class="bi bi-hdd" style="margin-right:8px" title="ROM"></i><p> @Model.Rom GB</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<hr class="mt-4">

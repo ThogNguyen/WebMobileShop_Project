@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+@{
+    Layout = null;
+}
+
+@model PS36400_NguyenLocThong_Assignment.Models.Admin;
+
+<!-- auth-register.html  21 Nov 2019 04:05:01 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Mobile Shop - Register</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="~/assets/css/app.min.css">
+    <link rel="stylesheet" href="~/assets/bundles/jquery-selectric/selectric.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+    <link rel='shortcut icon' type='image/x-icon' href='~/assets/img/favicon.ico' />
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5" style="margin-top: 50px">
+                <div class="row">
+                    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4>Đăng Kí</h4>
+                            </div>
+                            <div class="card-body">
+                                <form asp-controller="AdminRegister" asp-action="AdminRegister" enctype="multipart/form-data">
+                                    <div class="form-group col-12">
+                                        <label for="email">Email</label>
+                                        <input id="email" type="email" class="form-control" asp-for="@Model.Email">
+                                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="name">Họ và tên</label>
+                                        <input type="text" class="form-control" asp-for="@Model.HoTen" autofocus>
+                                    </div>
+
+                                    <div class="form-group col-12">
+                                        <label for="name">Số điện thoại</label>
+                                        <input type="text" class="form-control" asp-for="@Model.Sdt" autofocus>
+                                    </div>
+
+                                    <div class="form-group col-12"> 
+                                        <label for="password" class="d-block">Mật khẩu</label>
+                                        <input id="password" asp-for="@Model.MatKhau" type="password" class="form-control pwstrength" data-indicator="pwindicator">
+                                        <span asp-validation-for="@Model.MatKhau" class="text-danger"></span>
+                                    </div>
+                                        
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                            Đăng kí
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="mb-4 text-muted text-center">
+                                Bạn đã có tài khoản? <a asp-action="AdminLogin" asp-controller="AdminLogin">Đăng Nhập</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- General JS Scripts -->
+    <script src="~/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    <script src="~/assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js"></script>
+    <script src="~/assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="~/assets/js/page/auth-register.js"></script>
+    <!-- Template JS File -->
+    <script src="~/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="~/assets/js/custom.js"></script>
+</body>
+
+
+<!-- auth-register.html  21 Nov 2019 04:05:02 GMT -->
+</html>

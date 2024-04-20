@@ -1,0 +1,39 @@
+﻿@model PS36400_NguyenLocThong_Assignment.Models.Admin
+
+@{
+    ViewData["Title"] = "EditAdmin";
+    Layout = "~/Areas/AdminPage/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Cập Nhật Thông Tin Nhân Viên</h1>
+<div>
+    <a asp-action="IndexAdmin" asp-controller="AdminQLNhanVien" class="btn btn-danger">Trở về</a>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                Họ và Tên
+                <input asp-for="HoTen" class="form-control" />
+            </div>
+            <div class="form-group">
+                Email
+                <input asp-for="Email" readonly class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Số điện thoại
+                <input asp-for="Sdt" class="form-control" />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary mr-1" type="submit">Sửa</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

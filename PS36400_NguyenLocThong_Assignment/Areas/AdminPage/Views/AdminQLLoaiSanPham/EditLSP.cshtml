@@ -1,0 +1,28 @@
+﻿@model PS36400_NguyenLocThong_Assignment.Models.LoaiSanPham
+
+@{
+    ViewData["Title"] = "EditLSP";
+    Layout = "~/Areas/AdminPage/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Sửa Loại Sản Phẩm</h1>
+
+<a asp-action="IndexLSP" asp-controller="AdminQLLoaiSanPham" class="btn btn-danger">Trở về</a>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditLSP" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaLoaiSp" />
+            <div class="form-group">
+                <label asp-for="TenLoaiSp" class="control-label"></label>
+                <input asp-for="TenLoaiSp" class="form-control" />
+                <span asp-validation-for="TenLoaiSp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary mr-1" type="submit">Sửa</button>
+            </div>
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<PS36400_NguyenLocThong_Assignment.ViewModels.CartVM>
+
+@{
+    // tính tổng tiền
+    double totalAmount = Model.Sum(item => item.ThanhTien);
+}
+
+
+@{
+    ViewData["Title"] = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@if (Model.Any())
+{
+    <div class="row">
+        <!-- Bảng Giỏ Hàng -->
+        <div class="col-md-12 col-sm-12 pt-4 px-3 py-3">
+            <h4>Giỏ hàng của bạn</h4>
+            <hr class="mt-3">
+            <div class="table-responsive">
+                <table class="table table-responsive table-bordered align-middle text-center col-md-12">
+                    <thead>
+                        <tr class="bg-info bg-opacity-50" style="font-size: 18px">
+                            <th class="text-center align-middle col-md-2" scope="col">Ảnh sản phẩm</th>
+                            <th class="text-center align-middle col-md-3" scope="col">Tên sản phẩm</th>
+                            <th class="text-center align-middle col-md-2" scope="col">Giá tiền</th>
+                            <th class="text-center align-middle col-md-2" scope="col">Số lượng</th>
+                            <th class="text-center align-middle col-md-2" scope="col">Thành tiền</th>
+                            <th class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="text-center">
+                                <th scope="row">
+                                    <img src="~/image/@item.Hinh" alt="dt" width="150">
+                                </th>
+                                <th><strong>@item.TenSp</strong></th>
+                                <th>@String.Format("{0:N0}", @item.Giatien)đ</th>
+                                <th>
+                                   @item.Soluong
+                                </th>
+                                <th id="subtotal-@item.MaSp">@String.Format("{0:N0}", @item.ThanhTien)đ</th>
+                                <th><a type="button" class="btn btn-danger" asp-action="removeCart" asp-controller="Cart" asp-route-id="@item.MaSp">Xoá</a></th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+
+        </div>
+        <div class="col-md-4 col-sm-12 mt-4 p-3">
+            <div class="container">
+                 <ul style="margin: 0; padding: 0 ;list-style: none; display: flex; justify-content: space-between; align-items: baseline;">
+                     <li>
+                         <h4><strong>Thành tiền:</strong></h4>
+                     </li>
+                     <li id="totalAmount">
+                         <p><strong>@String.Format("{0:N0}", totalAmount)đ</strong></p>
+                     </li>
+                 </ul>
+                 <a asp-controller="Cart" asp-action="Checkout" class="btn btn-dark w-100">Thanh Toán</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center mt-5">
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">@ViewBag.EmptyCartMessage</h4>
+        </div>
+    </div>
+}
+
+
+
+
+ @*Thay đổi tiền khi tăng giảm số lượng
+<script>
+    function updateSubtotal(productId, pricePerItem) {
+        var quantityInput = document.getElementById('quantity-' + productId);
+        var quantity = parseInt(quantityInput.value);
+        var subtotal = quantity * pricePerItem;
+        var subtotalElement = document.getElementById('subtotal-' + productId);
+        subtotalElement.textContent = formatCurrency(subtotal);
+
+        // Cập nhật tổng tiền sau mỗi lần thay đổi số lượng sản phẩm
+        updateTotalAmount();
+    }
+
+    function updateTotalAmount() {
+        var totalAmount = 0;
+        var subtotalElements = document.querySelectorAll("[id^='subtotal-']");
+        subtotalElements.forEach(function (element) {
+            totalAmount += parseFloat(element.textContent.replace(/\D/g, ''));
+        });
+
+        var totalAmountElement = document.getElementById('totalAmount');
+        totalAmountElement.innerHTML = "<p><strong>" + formatCurrency(totalAmount) + "</strong></p>";
+    }
+
+    function formatCurrency(amount) {
+        // Sử dụng Intl.NumberFormat để định dạng số tiền
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+</script>*@
+
+
+
+

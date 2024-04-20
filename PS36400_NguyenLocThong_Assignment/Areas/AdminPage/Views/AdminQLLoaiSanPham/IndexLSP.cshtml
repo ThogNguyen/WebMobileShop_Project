@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/AdminPage/Views/Shared/_Layout.cshtml";
+}
+
+@model List<PS36400_NguyenLocThong_Assignment.Models.LoaiSanPham>
+
+
+@if (!string.IsNullOrEmpty(ViewBag.AlertMessage))
+{
+    <script>
+        alert("@ViewBag.AlertMessage");
+    </script>
+}
+
+
+<div class="section-body">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Quản Lí Loại Sản Phẩm</h2>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <a asp-action="CreateLSP" asp-controller="AdminQLLoaiSanPham" class="btn btn-primary">Thêm loại sản phẩm mới</a>
+            </div>
+            <div class="card-body">
+                <table class="table" id="product-table">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th scope="col">Mã Loại Sản Phẩm</th>
+                            <th scope="col">Tên Loại Sản Phẩm</th>
+                            <th scope="col">Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model)
+                        {
+                            <tr style="text-align: center;">
+                                <th scope="row">@item.MaLoaiSp</th>
+                                <td>@item.TenLoaiSp</td>
+                                <td>
+                                    <a asp-action="EditLSP" asp-controller="AdminQLLoaiSanPham" asp-route-id="@item.MaLoaiSp" class="btn btn-primary">Sửa</a>
+                                    <a asp-action="DeleteLSP" asp-controller="AdminQLLoaiSanPham" asp-route-id="@item.MaLoaiSp" class="btn btn-danger">Xóa </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/AdminPage/Views/Shared/_Layout.cshtml";
+}
+@model List<PS36400_NguyenLocThong_Assignment.Models.NguoiDung>
+
+<div class="section-body">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Quản Lí Người Dùng</h2>
+            </div>
+            <div class="card-body">
+                <table class="table" id="product-table">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th scope="col">STT</th>
+                            <th scope="col">Họ và tên</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">SĐT</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model)
+                        {
+                            <tr style="text-align: center;">
+                                <th scope="row">@item.MaNguoiDung</th>
+                                <td>@item.HoTen</td>
+                                <td>@item.Email</td>
+                                <td>@item.Sdt</td>
+                                <td>@item.DiaChi</td>
+                                <td>
+                                    <a asp-action="DeleteUser" asp-route-id="@item.MaNguoiDung" class="btn btn-danger">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,221 @@
+﻿@{
+    ViewData["Title"] = "Danh Mục Sản Phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model PagedList.IPagedList<PS36400_NguyenLocThong_Assignment.Models.SanPham>
+@using PagedList.Mvc;
+
+
+<!-- HEADER -->
+<header>
+    <div class="container">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/image/slideheader1.png" class="d-block w-100" alt="banner1">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/image/slideheader2.png" class="d-block w-100" alt="banner2">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/image/slideheader3.png" class="d-block w-100" alt="banner3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+
+<div class="row">
+    <!-- Bộ lọc sản phẩm -->
+    <div class="col-md-3 mt-4">
+        <div id="sidebar">
+            
+            @*Menu danh mục sản phẩm*@
+            @await Component.InvokeAsync("MenuDanhMucSP")
+
+
+            <form asp-action="Index" asp-controller="DanhMucSP" method="get">
+                <div class="filter-button">
+                    <button class="btn btn-primary" type="submit">Lọc</button>
+                </div>
+                @* lọc theo giá sản phẩm *@
+                <div class="widget wid-discouts">
+                    <div class="heading"><h4 class="text-uppercase">Giá tiền</h4></div>
+                    <div class="content">
+                        <div class="form-check">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="priceRange" id="Radio1" value="all" checked>
+                                <label class="form-check-label" for="Radio1">
+                                    Tất cả
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="priceRange" id="Radio2" value="down2Mil">
+                                <label class="form-check-label" for="Radio2">
+                                    Dưới 2 triệu
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="priceRange" id="Radio3" value="2to4Mil">
+                                <label class="form-check-label" for="Radio3">
+                                    2 - 4 triệu
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="priceRange" id="Radio4" value="4to7Mil">
+                                <label class="form-check-label" for="Radio4">
+                                    4 - 7 triệu
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="priceRange" id="Radio5" value="up7Mil">
+                                <label class="form-check-label" for="Radio5">
+                                    Trên 7 triệu
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                @* lọc loại màn hình *@
+                <div class="widget wid-discouts">
+                    <div class="heading"><h4 class="text-uppercase">Màn hình</h4></div>
+                    <div class="content">
+                        <div class="form-check">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="screenSize" id="Radio6" value="all" checked>
+                                <label class="form-check-label" for="Radio6">
+                                    Tất cả
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="screenSize" id="Radio7" value="6den7inches">
+                                <label class="form-check-label" for="Radio8">
+                                    6 - 7 inches
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="screenSize" id="Radio8" value="tren7inches">
+                                <label class="form-check-label" for="Radio9">
+                                    Trên 7 inches
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="loai" value="@ViewData["TenLoai"]" />
+                <input type="hidden" name="sortOrder" value="@ViewData["SortOrder"]" />
+                <input type="hidden" name="priceRange" value="@ViewData["PriceRange"]" />
+                <input type="hidden" name="screenSize" value="@ViewData["ScreenSize"]" />
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Main content -->
+    <div class="col-md-9">
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="sort-link content float-end" style="margin-top: 5px;">
+                    <button><a asp-action="Index" asp-controller="DanhMucSP" asp-route-loai="@ViewData["TenLoai"]" asp-route-priceRange="@ViewData["PriceRange"]" asp-route-screenSize="@ViewData["ScreenSize"]" asp-route-sortOrder="@ViewBag.SortNewSP" data-sort="sanphammoi">Sản phẩm mới nhất</a></button> 
+                    <button><a asp-action="Index" asp-controller="DanhMucSP" asp-route-loai="@ViewData["TenLoai"]" asp-route-priceRange="@ViewData["PriceRange"]" asp-route-screenSize="@ViewData["ScreenSize"]" asp-route-sortOrder="@ViewBag.SortBestSeller" data-sort="sanphambanchay">Bán chạy nhất</a></button> 
+                    <button><a asp-action="Index" asp-controller="DanhMucSP" asp-route-loai="@ViewData["TenLoai"]" asp-route-priceRange="@ViewData["PriceRange"]" asp-route-screenSize="@ViewData["ScreenSize"]" asp-route-sortOrder="@ViewBag.SortPriceUp" data-sort="giatang">Giá tăng</a></button> 
+                    <button><a asp-action="Index" asp-controller="DanhMucSP" asp-route-loai="@ViewData["TenLoai"]" asp-route-priceRange="@ViewData["PriceRange"]" asp-route-screenSize="@ViewData["ScreenSize"]" asp-route-sortOrder="@ViewBag.SortPriceDown" data-sort="giagiam">Giá giảm</a></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Danh sách sản phẩm -->
+        <div class="row p-3">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 col-sm-6 p-2">
+                    <div class="card text-center">
+                        <a asp-controller="DanhMucSP" asp-action="DetailProduct" asp-route-id="@item.MaSp">
+                            <img class="product-image" src="~/image/@item.HinhSp">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title text-center product-name">@item.TenSp</h5>
+                            <p class="card-text text-center text-danger text-giasp">
+                                @String.Format("{0:N0}", @item.GiaSp)đ
+                            </p>
+                            <div class="cdt-product__config__param">
+                                <div class="param-item">
+                                    <i class="bi bi-cpu" title="CPU"></i>@item.Chip
+                                </div>
+                                <div class="param-item">
+                                    <i class="bi bi-phone" title="Màn Hình"></i>@item.ManHinh inches
+                                </div>
+                                <div class="param-item">
+                                    <i class="bi bi-memory" title="RAM"></i>@item.Ram GB
+                                </div>
+                                <div class="param-item">
+                                    <i class="bi bi-hdd" title="ROM"></i>@item.Rom GB
+                                </div>
+                            </div>
+                            <div class="btn-group d-flex justify-content-center" role="group">
+                                <a asp-action="addtoCart" asp-controller="Cart" asp-route-id="@item.MaSp" class="btn btn-outline-success btn-sm">Thêm vào giỏ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Phân trang -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                @if (Model.HasPreviousPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageNumber - 1)" asp-route-loai="@ViewData["TenLoai"]" asp-route-sortOrder="@ViewData["SortOrder"]" asp-route-screenSize="@ViewData["ScreenSize"]" asp-route-priceRange="@ViewData["PriceRange"]">Trước</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link">Trước</a>
+                    </li>
+                }
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-loai="@ViewData["TenLoai"]" asp-route-sortOrder="@ViewData["SortOrder"]" asp-route-screenSize="@ViewData["ScreenSize"]" asp-route-priceRange="@ViewData["PriceRange"]">@i</a>
+                    </li>
+                }
+                @if (Model.HasNextPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageNumber + 1)" asp-route-loai="@ViewData["TenLoai"]" asp-route-sortOrder="@ViewData["SortOrder"]" asp-route-screenSize="@ViewData["ScreenSize"]" asp-route-priceRange="@ViewData["PriceRange"]">Sau</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link">Sau</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+
+
+
+
